@@ -5,8 +5,11 @@ Velma bot is a discord bot to automatically post the number of sites that need t
 
 The bot is currently set up only for operation in a single channel and requires the environment variables `TOKEN` (for the discord token) and `CHANNEL` (for the channel ID) in order to run.
 
+## Building
 
-## Hosting.
+To build the docker image:
+`docker build -t velma-bot .`
+## Hosting
 
 The bot can be hosted with docker
 

@@ -4,6 +4,7 @@ import asyncio
 import aiohttp
 import aiocron
 import csv
+import time
 from bs4 import BeautifulSoup
 
 client = discord.Client()
@@ -50,11 +51,11 @@ async def post_velma_count():
 	count = await get_current_velma_count(client.get_channel(os.getenv("CHANNEL")))
 
 	#write to csv
-	write_datapoint(count)
+	await write_datapoint(count)
 
 
 async def write_datapoint(datapoint):
-	with open("data/data.csv", "a") as csvfile:
+	with open("./data/data.csv", "a") as csvfile:
 		writer = csv.writer(csvfile)
 		writer.writerow([time.time(), datapoint])
 

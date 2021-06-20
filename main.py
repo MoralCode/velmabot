@@ -20,7 +20,7 @@ async def on_message(message):
 		await message.channel.send('Hello!')
 
 # https://discordpy.readthedocs.io/en/latest/faq.html#what-does-blocking-mean
-async def send_current_velma_count(channel):
+async def get_current_velma_count(channel):
 	# channel = discord.utils.get(guild.text_channels, name="Name of channel")
 	async with aiohttp.ClientSession() as session:
 		async with session.get('https://vial.calltheshots.us/dashboard/public-velma-remaining/') as r:
@@ -30,14 +30,13 @@ async def send_current_velma_count(channel):
 				results = soup.find(class_="query-results")
 				number = results.find(class_="big-number")
 				value = number.find("h1").text
-				print(value)
-				await channel.send("The Current velma count is: " + str(value))
+				return value
 
 
 @aiocron.crontab('* * * * *') #('30 7,21 * * *')
 async def job():
 	print("I'm working...")
 
-	await send_current_velma_count(client.get_channel(532448188901228570))
+	await send_current_velma_count(client.get_channel(839741667560259604))
 
 client.run(os.getenv('TOKEN'))

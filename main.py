@@ -32,10 +32,11 @@ async def get_current_velma_count(channel):
 				value = number.find("h1").text
 				return value
 
+# log and post the count at 7:30 am and 9:30 pm
+@aiocron.crontab('30 7,21 * * *')
+async def post_velma_count():
+	print("I'm posting...")
 
-@aiocron.crontab('* * * * *') #('30 7,21 * * *')
-async def job():
-	print("I'm working...")
 
 	await send_current_velma_count(client.get_channel(839741667560259604))
 

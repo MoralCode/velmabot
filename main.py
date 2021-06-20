@@ -37,7 +37,7 @@ async def send_current_velma_count(channel):
 @aiocron.crontab('* * * * *') #('30 7,21 * * *')
 async def job():
 	print("I'm working...")
-	
-	await send_current_velma_count(client.get_channel("532448188901228570")) # bot-spam area51
+
+	await send_current_velma_count(client.get_channel(532448188901228570))
 
 client.run(os.getenv('TOKEN'))

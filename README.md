@@ -9,3 +9,12 @@ The bot is currently set up only for operation in a single channel and requires 
 ## Hosting.
 
 The bot can be hosted with docker
+
+```bash
+docker run \ 
+	-e TOKEN=YOUR_DISCORD_TOKEN \
+	-e CHANNEL=CHANNEL_ID \
+	--mount type=bind,source="$(pwd)",target=/data \
+	velma-bot
+
+```

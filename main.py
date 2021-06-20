@@ -26,8 +26,7 @@ async def on_message(message):
 		await message.channel.send('Hello!')
 
 # https://discordpy.readthedocs.io/en/latest/faq.html#what-does-blocking-mean
-async def get_current_velma_count(channel):
-	# channel = discord.utils.get(guild.text_channels, name="Name of channel")
+async def get_current_velma_count():
 	async with aiohttp.ClientSession() as session:
 		async with session.get('https://vial.calltheshots.us/dashboard/public-velma-remaining/', headers=headers) as r:
 			if r.status == 200:
@@ -42,8 +41,8 @@ async def get_current_velma_count(channel):
 @aiocron.crontab('30 7,21 * * *')
 async def post_velma_count():
 	print("I'm posting...")
-
-	count = await get_current_velma_count(client.get_channel(os.getenv("CHANNEL")))
+	channel = client.get_channel(os.getenv("CHANNEL"))
+	count = await get_current_velma_count()
 
 	await channel.send("The Current velma count is: " + str(count))
 

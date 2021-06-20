@@ -37,7 +37,8 @@ async def get_current_velma_count(channel):
 async def post_velma_count():
 	print("I'm posting...")
 
+	count = await get_current_velma_count(client.get_channel(os.getenv("CHANNEL")))
 
-	await send_current_velma_count(client.get_channel(839741667560259604))
+	await channel.send("The Current velma count is: " + str(count))
 
 client.run(os.getenv('TOKEN'))

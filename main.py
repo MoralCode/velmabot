@@ -1,5 +1,6 @@
 import discord
 import os
+import schedule
 
 client = discord.Client()
 

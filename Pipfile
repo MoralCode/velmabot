@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 "discord.py" = "*"
 schedule = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 

@@ -40,11 +40,17 @@ async def post_velma_count():
 
 	count = await get_current_velma_count(client.get_channel(os.getenv("CHANNEL")))
 
-	#write to csv
-	write_datapoint(count)
-
 	await channel.send("The Current velma count is: " + str(count))
 
+# log the count every 30 minutes
+@aiocron.crontab('30 * * * *')
+async def post_velma_count():
+	print("I'm logging...")
+
+	count = await get_current_velma_count(client.get_channel(os.getenv("CHANNEL")))
+
+	#write to csv
+	write_datapoint(count)
 
 
 async def write_datapoint(datapoint):

@@ -9,6 +9,10 @@ from bs4 import BeautifulSoup
 
 client = discord.Client()
 
+headers = {
+    'User-Agent': 'velma-bot https://github.com/MoralCode/velmabot'}
+
+
 @client.event
 async def on_ready():
 	print('We have logged in as {0.user}'.format(client))
@@ -25,7 +29,7 @@ async def on_message(message):
 async def get_current_velma_count(channel):
 	# channel = discord.utils.get(guild.text_channels, name="Name of channel")
 	async with aiohttp.ClientSession() as session:
-		async with session.get('https://vial.calltheshots.us/dashboard/public-velma-remaining/') as r:
+		async with session.get('https://vial.calltheshots.us/dashboard/public-velma-remaining/', headers=headers) as r:
 			if r.status == 200:
 				text = await r.text()
 				soup = BeautifulSoup(text, 'html.parser')

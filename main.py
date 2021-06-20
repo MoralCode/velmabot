@@ -3,6 +3,7 @@ import os
 import asyncio
 import aiohttp
 import aiocron
+from bs4 import BeautifulSoup
 
 client = discord.Client()
 
@@ -25,9 +26,14 @@ async def send_current_velma_count(channel):
 		async with session.get('https://vial.calltheshots.us/dashboard/public-velma-remaining/') as r:
 			if r.status == 200:
 				text = await r.text()
-				print(text)
+				soup = BeautifulSoup(text, 'html.parser')
+				results = soup.find(class_="query-results")
+				number = results.find(class_="big-number")
+				value = number.find("h1").text
+				print(value)
+				await channel.send("The Current velma count is: " + str(value))
 
-				# await channel.send(js['file'])
+
 @aiocron.crontab('* * * * *') #('30 7,21 * * *')
 async def job():
 	print("I'm working...")

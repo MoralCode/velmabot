@@ -47,7 +47,7 @@ async def post_velma_count():
 
 # log the count every 30 minutes
 @aiocron.crontab('30 * * * *')
-async def post_velma_count():
+async def log_velma_count():
 	print("I'm logging...")
 
 	count = await get_current_velma_count()

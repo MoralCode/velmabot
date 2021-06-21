@@ -5,7 +5,6 @@ import aiohttp
 import aiocron
 import csv
 import time
-from bs4 import BeautifulSoup
 
 client = discord.Client()
 

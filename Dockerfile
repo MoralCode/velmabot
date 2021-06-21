@@ -1,6 +1,6 @@
 FROM python:3.9
 
-RUN pip install discord.py aiocron beautifulsoup4
+RUN pip install discord.py aiocron
 
 COPY main.py .
 

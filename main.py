@@ -28,8 +28,13 @@ async def on_message(message):
 
 	#TODO: history command that shows the last few data points
 	if message.content.startswith('$velma status'):
-		last_updated = get_lastupdate_string(lastvalue[0])
-		await message.channel.send(generate_count_message(lastvalue[1], datestr=last_updated))
+		if lastvalue[1]:
+			last_updated = get_lastupdate_string(lastvalue[0])
+			await message.channel.send(generate_count_message(lastvalue[1], datestr=last_updated))
+		else: 
+			count = await get_current_velma_count()
+			await message.channel.send(generate_count_message(count, get_lastupdate_string(time.time())))
+
 	else if message.content.startswith('$velma help'):
 		await message.channel.send("a full list of commands can be found at https://github.com/MoralCode/velmabot/")
 

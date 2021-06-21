@@ -63,4 +63,4 @@ async def write_datapoint(datapoint):
 		writer.writerow([time.time(), datapoint])
 
 
-client.run(os.getenv('TOKEN'))
+client.run(os.getenv('DISCORD_TOKEN'))

@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 "discord.py" = "*"
 aiocron = "*"
-beautifulsoup4 = "*"
 
 [dev-packages]
 

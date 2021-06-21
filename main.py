@@ -5,14 +5,16 @@ import aiohttp
 import aiocron
 import csv
 import time
-from bs4 import BeautifulSoup
 
 client = discord.Client()
+
+lastvalue = (None, None)
 
 headers = {
     'User-Agent': 'velma-bot https://github.com/MoralCode/velmabot',
 	"Authorization": "Bearer " + os.getenv("API_KEY")
 	}
+DATAFILE = "./data/data.csv""
 
 
 @client.event
@@ -23,7 +25,7 @@ async def on_ready():
 async def on_message(message):
 	if message.author == client.user:
 		return
-
+  
 # https://discordpy.readthedocs.io/en/latest/faq.html#what-does-blocking-mean
 async def get_current_velma_count():
 	async with aiohttp.ClientSession() as session:
@@ -40,23 +42,25 @@ async def post_velma_count():
 	channel = client.get_channel(os.getenv("CHANNEL"))
 	count = await get_current_velma_count()
 
-	await channel.send("The Current velma count is: " + str(count))
+	await channel.send(generate_count_message(count, get_lastupdate_string(time.time())))
 
-# log the count every 30 minutes
-@aiocron.crontab('30 * * * *')
-async def post_velma_count():
+# log the count every 5 minutes
+@aiocron.crontab('*/5 * * * *')
+async def log_velma_count():
 	print("I'm logging...")
 
-	count = await get_current_velma_count(client.get_channel(os.getenv("CHANNEL")))
+	count = await get_current_velma_count()
 
 	#write to csv
 	await write_datapoint(count)
 
 
 async def write_datapoint(datapoint):
-	with open("./data/data.csv", "a") as csvfile:
+	global lastvalue
+	with open(DATAFILE, "a") as csvfile:
 		writer = csv.writer(csvfile)
-		writer.writerow([time.time(), datapoint])
+		lastvalue = (time.time(), datapoint)
+		writer.writerow(lastvalue)
 
 
 client.run(os.getenv('DISCORD_TOKEN'))

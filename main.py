@@ -24,9 +24,6 @@ async def on_message(message):
 	if message.author == client.user:
 		return
 
-	if message.content.startswith('$hello'):
-		await message.channel.send('Hello!')
-
 # https://discordpy.readthedocs.io/en/latest/faq.html#what-does-blocking-mean
 async def get_current_velma_count():
 	async with aiohttp.ClientSession() as session:

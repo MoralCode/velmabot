@@ -49,7 +49,7 @@ async def post_velma_count():
 async def post_velma_count():
 	print("I'm logging...")
 
-	count = await get_current_velma_count(client.get_channel(os.getenv("CHANNEL")))
+	count = await get_current_velma_count()
 
 	#write to csv
 	await write_datapoint(count)

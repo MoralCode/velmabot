@@ -8,6 +8,8 @@ import time
 
 client = discord.Client()
 
+lastvalue = (None, None)
+
 headers = {
     'User-Agent': 'velma-bot https://github.com/MoralCode/velmabot',
 	"Authorization": "Bearer " + os.getenv("API_KEY")
@@ -57,9 +59,11 @@ async def log_velma_count():
 
 
 async def write_datapoint(datapoint):
+	global lastvalue
 	with open(DATAFILE, "a") as csvfile:
 		writer = csv.writer(csvfile)
-		writer.writerow([time.time(), datapoint])
+		lastvalue = (time.time(), datapoint)
+		writer.writerow(lastvalue)
 
 
 client.run(os.getenv('DISCORD_TOKEN'))

@@ -23,6 +23,7 @@ The bot can be hosted with docker
 docker run \ 
 	-e DISCORD_TOKEN=YOUR_DISCORD_TOKEN \
 	-e CHANNEL=CHANNEL_ID \
+	-e API_KEY=YOUR_VIAL_API_KEY \
 	--mount type=bind,source="$(pwd)",target=/data \
 	velma-bot
 

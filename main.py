@@ -28,6 +28,11 @@ async def on_message(message):
 
 	if message.content.startswith('$hello'):
 		await message.channel.send('Hello!')
+def get_lastupdate_string(lastupdate):
+	return lastupdate.strftime('%m/%d %H:%M')
+
+def generate_count_message(count, datestr = "recently"):
+	return "The current velma count as of " + datestr + " is: " + str(count)
 
 # https://discordpy.readthedocs.io/en/latest/faq.html#what-does-blocking-mean
 async def get_current_velma_count():
@@ -45,7 +50,7 @@ async def post_velma_count():
 	channel = client.get_channel(os.getenv("CHANNEL"))
 	count = await get_current_velma_count()
 
-	await channel.send("The Current velma count is: " + str(count))
+	await channel.send(generate_count_message(count, get_lastupdate_string(time.time())))
 
 # log the count every 5 minutes
 @aiocron.crontab('*/5 * * * *')

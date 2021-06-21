@@ -10,7 +10,9 @@ from bs4 import BeautifulSoup
 client = discord.Client()
 
 headers = {
-    'User-Agent': 'velma-bot https://github.com/MoralCode/velmabot'}
+    'User-Agent': 'velma-bot https://github.com/MoralCode/velmabot',
+	"Authorization": "Bearer " + os.getenv("API_KEY")
+	}
 
 
 @client.event
@@ -28,14 +30,11 @@ async def on_message(message):
 # https://discordpy.readthedocs.io/en/latest/faq.html#what-does-blocking-mean
 async def get_current_velma_count():
 	async with aiohttp.ClientSession() as session:
-		async with session.get('https://vial.calltheshots.us/dashboard/public-velma-remaining/', headers=headers) as r:
+		async with session.get('https://vial.calltheshots.us/api/searchSourceLocations?unmatched=1&size=0', headers=headers) as r:
 			if r.status == 200:
-				text = await r.text()
-				soup = BeautifulSoup(text, 'html.parser')
-				results = soup.find(class_="query-results")
-				number = results.find(class_="big-number")
-				value = number.find("h1").text
-				return value
+				res = await r.json()
+			
+				return res.get("total")
 
 # log and post the count at 7:30 am and 9:30 pm
 @aiocron.crontab('30 7,21 * * *')

@@ -30,6 +30,8 @@ async def on_message(message):
 	if message.content.startswith('$velma status'):
 		last_updated = get_lastupdate_string(lastvalue[0])
 		await message.channel.send(generate_count_message(lastvalue[1], datestr=last_updated))
+	else if message.content.startswith('$velma help'):
+		await message.channel.send("a full list of commands can be found at https://github.com/MoralCode/velmabot/")
 
 def get_lastupdate_string(lastupdate):
 	return lastupdate.strftime('%m/%d %H:%M')

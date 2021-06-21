@@ -4,7 +4,9 @@ import asyncio
 import aiohttp
 import aiocron
 import csv
+from datetime import datetime
 import time
+import timeago
 
 client = discord.Client()
 
@@ -39,7 +41,8 @@ async def on_message(message):
 		await message.channel.send("a full list of commands can be found at https://github.com/MoralCode/velmabot/")
 
 def get_lastupdate_string(lastupdate):
-	return lastupdate.strftime('%m/%d %H:%M')
+	# return datetime.fromtimestamp(lastupdate).strftime('%m/%d %H:%M')
+	return timeago.format(datetime.fromtimestamp(lastupdate), datetime.now())
 
 def generate_count_message(count, datestr = "recently"):
 	return "The current velma count as of " + datestr + " is: " + str(count)

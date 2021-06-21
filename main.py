@@ -45,8 +45,8 @@ async def post_velma_count():
 
 	await channel.send("The Current velma count is: " + str(count))
 
-# log the count every 30 minutes
-@aiocron.crontab('30 * * * *')
+# log the count every 5 minutes
+@aiocron.crontab('*/5 * * * *')
 async def log_velma_count():
 	print("I'm logging...")
 

@@ -26,8 +26,11 @@ async def on_message(message):
 	if message.author == client.user:
 		return
 
-	if message.content.startswith('$hello'):
-		await message.channel.send('Hello!')
+	#TODO: history command that shows the last few data points
+	if message.content.startswith('$velma status'):
+		last_updated = get_lastupdate_string(lastvalue[0])
+		await message.channel.send(generate_count_message(lastvalue[1], datestr=last_updated))
+
 def get_lastupdate_string(lastupdate):
 	return lastupdate.strftime('%m/%d %H:%M')
 

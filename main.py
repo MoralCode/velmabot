@@ -35,7 +35,7 @@ async def on_message(message):
 			count = await get_current_velma_count()
 			await message.channel.send(generate_count_message(count, get_lastupdate_string(time.time())))
 
-	else if message.content.startswith('$velma help'):
+	elif message.content.startswith('$velma help'):
 		await message.channel.send("a full list of commands can be found at https://github.com/MoralCode/velmabot/")
 
 def get_lastupdate_string(lastupdate):

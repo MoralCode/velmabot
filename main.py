@@ -14,7 +14,7 @@ headers = {
     'User-Agent': 'velma-bot https://github.com/MoralCode/velmabot',
 	"Authorization": "Bearer " + os.getenv("API_KEY")
 	}
-DATAFILE = "./data/data.csv""
+DATAFILE = "./data/data.csv"
 
 
 @client.event

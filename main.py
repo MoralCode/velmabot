@@ -12,6 +12,7 @@ headers = {
     'User-Agent': 'velma-bot https://github.com/MoralCode/velmabot',
 	"Authorization": "Bearer " + os.getenv("API_KEY")
 	}
+DATAFILE = "./data/data.csv""
 
 
 @client.event
@@ -56,7 +57,7 @@ async def post_velma_count():
 
 
 async def write_datapoint(datapoint):
-	with open("./data/data.csv", "a") as csvfile:
+	with open(DATAFILE, "a") as csvfile:
 		writer = csv.writer(csvfile)
 		writer.writerow([time.time(), datapoint])
 

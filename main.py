@@ -60,7 +60,7 @@ async def get_current_velma_count():
 @aiocron.crontab('30 7,21 * * *')
 async def post_velma_count():
 	print("I'm posting...")
-	channel = client.get_channel(os.getenv("CHANNEL"))
+	channel = client.get_channel(int(os.getenv("CHANNEL")))
 	count = await get_current_velma_count()
 
 	await channel.send(generate_count_message(count, get_lastupdate_string(time.time())))

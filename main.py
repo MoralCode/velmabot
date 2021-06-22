@@ -6,9 +6,12 @@ import aiocron
 import csv
 from datetime import datetime
 import time
+import logging
 import timeago
 
 client = discord.Client()
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
 
 lastvalue = (None, None)
 
@@ -21,7 +24,7 @@ DATAFILE = "./data/data.csv"
 
 @client.event
 async def on_ready():
-	print('We have logged in as {0.user}'.format(client))
+	logger.info('We have logged in as {0.user}'.format(client))
 
 @client.event
 async def on_message(message):
@@ -59,7 +62,7 @@ async def get_current_velma_count():
 # log and post the count at 7:30 am and 9:30 pm
 @aiocron.crontab('30 7,21 * * *')
 async def post_velma_count():
-	print("I'm posting...")
+	logger.info("I'm posting...")
 	channel = client.get_channel(int(os.getenv("CHANNEL")))
 	count = await get_current_velma_count()
 
@@ -68,7 +71,7 @@ async def post_velma_count():
 # log the count every 5 minutes
 @aiocron.crontab('*/5 * * * *')
 async def log_velma_count():
-	print("I'm logging...")
+	logger.info("I'm logging...")
 
 	count = await get_current_velma_count()
 

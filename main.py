@@ -60,7 +60,7 @@ async def get_current_velma_count():
 				return res.get("total")
 
 # log and post the count at 7:30 am and 9:30 pm
-@aiocron.crontab('30 7,21 * * *')
+@aiocron.crontab('0 4,16 * * *')
 async def post_velma_count():
 	logger.info("I'm posting...")
 	channel = client.get_channel(int(os.getenv("CHANNEL")))

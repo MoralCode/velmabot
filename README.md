@@ -24,7 +24,15 @@ docker run \
 	-e DISCORD_TOKEN=YOUR_DISCORD_TOKEN \
 	-e CHANNEL=CHANNEL_ID \
 	-e API_KEY=YOUR_VIAL_API_KEY \
+	-e TZ=America/Los_Angeles \
+	--mount type=bind,source=/etc/localtime,target=/etc/localtime,readonly  \
 	--mount type=bind,source="$(pwd)",target=/data \
 	velma-bot
 
 ```
+
+
+## Troubleshooting
+
+### Timezones
+for the time to be correct, you need to mount `/etc/localtime` from the host into the docker container as read only AND set the `TZ` environment variable. both of these are done in the docker command above

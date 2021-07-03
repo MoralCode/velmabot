@@ -88,4 +88,12 @@ async def write_datapoint(datapoint):
 		writer.writerow(lastvalue)
 
 
+# Function to read 
+# last N lines of the file 
+def LastNlines(fname, n): 
+	with open(fname, 'r') as f:
+		q = deque(f, n)  # replace 2 with n (lines read at the end)
+		return list(q)
+
+
 client.run(os.getenv('DISCORD_TOKEN'))

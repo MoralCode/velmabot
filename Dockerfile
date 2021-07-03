@@ -11,4 +11,4 @@ COPY main.py .
 
 RUN mkdir data
 
-ENTRYPOINT python3 main.py
+ENTRYPOINT pipenv run python3 main.py

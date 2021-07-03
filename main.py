@@ -21,6 +21,7 @@ headers = {
 	"Authorization": "Bearer " + os.getenv("API_KEY")
 	}
 DATAFILE = "./data/data.csv"
+IMAGE_CACHE = 'data/graph-tmp.png'
 
 
 @client.event
@@ -47,6 +48,27 @@ async def on_message(message):
 def get_lastupdate_string(lastupdate):
 	# return datetime.fromtimestamp(lastupdate).strftime('%m/%d %H:%M')
 	return timeago.format(datetime.fromtimestamp(lastupdate), datetime.now())
+
+def generate_graph():
+	x = []
+	y = []
+	data = LastNlines(DATAFILE, 60 * 24)
+	for entry in data:
+		row = entry.split(",")
+		x.append(row[0])
+		y.append(row[1])
+
+	# convert data to the respective format
+	x = [datetime.fromtimestamp(float(d)) for d in x ]
+	y = [int(v) if v else 0 for v in y ]
+
+	plt.plot(x, y)
+	plt.xticks(rotation = 45) # Rotates X-Axis Ticks by 45-degrees
+	plt.show()
+	plt.savefig(IMAGE_CACHE)
+
+async def send_image(channel):
+	await channel.send(file=discord.File(IMAGE_CACHE))
 
 def generate_count_message(count, datestr = "recently"):
 	return "The current velma count as of " + datestr + " is: " + str(count)

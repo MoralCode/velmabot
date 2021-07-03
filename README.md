@@ -9,6 +9,8 @@ The bot is currently set up only for operation in a single channel and requires 
 
 `$velma status` - prints the status of velma sites to be scraped as of the last check
 
+`$velma graph` - generates and sends a graph of the velma number ofer the past 24 hours
+
 `$velma help` - display a help message with a link to this lost of commands
 
 ## Building

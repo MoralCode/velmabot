@@ -1,6 +1,8 @@
 FROM python:3.9-slim-buster
 
-RUN pip install discord.py aiocron timeago
+RUN pip install pipenv
+
+RUN pipenv install
 
 COPY main.py .
 

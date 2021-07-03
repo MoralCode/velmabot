@@ -4,10 +4,12 @@ import asyncio
 import aiohttp
 import aiocron
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import logging
 import timeago
+import matplotlib.pyplot as plt
+
 
 client = discord.Client()
 logging.basicConfig(level=logging.INFO)
@@ -20,6 +22,7 @@ headers = {
 	"Authorization": "Bearer " + os.getenv("API_KEY")
 	}
 DATAFILE = "./data/data.csv"
+IMAGE_CACHE = 'data/graph-tmp.png'
 
 
 @client.event
@@ -39,13 +42,36 @@ async def on_message(message):
 		else: 
 			count = await get_current_velma_count()
 			await message.channel.send(generate_count_message(count, get_lastupdate_string(time.time())))
-
+	elif message.content.startswith('$velma graph'):
+		generate_graph()
+		await send_image(message.channel)
 	elif message.content.startswith('$velma help'):
 		await message.channel.send("a full list of commands can be found at https://github.com/MoralCode/velmabot/")
 
 def get_lastupdate_string(lastupdate):
 	# return datetime.fromtimestamp(lastupdate).strftime('%m/%d %H:%M')
 	return timeago.format(datetime.fromtimestamp(lastupdate), datetime.now())
+
+def generate_graph():
+	x = []
+	y = []
+	date_24h_ago = datetime.now() - timedelta(hours = 24)
+	data = get_data_since(datetime.timestamp(date_24h_ago))
+	for entry in data:
+		row = entry.split(",")
+		x.append(row[0])
+		y.append(row[1])
+
+	# convert data to the respective format
+	x = [datetime.fromtimestamp(float(d)) for d in x ]
+	y = [int(v) if v else 0 for v in y ]
+
+	plt.plot(x, y)
+	plt.xticks(rotation = 20) # Rotates X-Axis Ticks by 45-degrees
+	plt.savefig(IMAGE_CACHE)
+
+async def send_image(channel):
+	await channel.send(file=discord.File(IMAGE_CACHE))
 
 def generate_count_message(count, datestr = "recently"):
 	return "The current velma count as of " + datestr + " is: " + str(count)
@@ -85,6 +111,18 @@ async def write_datapoint(datapoint):
 		writer = csv.writer(csvfile)
 		lastvalue = (time.time(), datapoint)
 		writer.writerow(lastvalue)
+
+
+def get_data_since(timestamp):
+	data = []
+	with open(DATAFILE, 'r') as f:
+		for line in f:
+			date = line.split(",")[0] 
+			date = float(date) if date else 0
+			if date >= timestamp:
+				data.append(line)
+	return data
+
 
 
 client.run(os.getenv('DISCORD_TOKEN'))

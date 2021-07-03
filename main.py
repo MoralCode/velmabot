@@ -4,12 +4,11 @@ import asyncio
 import aiohttp
 import aiocron
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import logging
 import timeago
 import matplotlib.pyplot as plt
-from collections import deque
 
 
 client = discord.Client()
@@ -56,7 +55,8 @@ def get_lastupdate_string(lastupdate):
 def generate_graph():
 	x = []
 	y = []
-	data = LastNlines(DATAFILE, 60 * 24)
+	date_24h_ago = datetime.now() - timedelta(hours = 24)
+	data = get_data_since(datetime.timestamp(date_24h_ago))
 	for entry in data:
 		row = entry.split(",")
 		x.append(row[0])
@@ -114,12 +114,16 @@ async def write_datapoint(datapoint):
 		writer.writerow(lastvalue)
 
 
-# Function to read 
-# last N lines of the file 
-def LastNlines(fname, n): 
-	with open(fname, 'r') as f:
-		q = deque(f, n)  # replace 2 with n (lines read at the end)
-		return list(q)
+def get_data_since(timestamp):
+	data = []
+	with open(DATAFILE, 'r') as f:
+		for line in f:
+			date = line.split(",")[0] 
+			date = float(date) if date else 0
+			if date >= timestamp:
+				data.append(line)
+	return data
+
 
 
 client.run(os.getenv('DISCORD_TOKEN'))

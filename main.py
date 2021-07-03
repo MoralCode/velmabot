@@ -68,7 +68,6 @@ def generate_graph():
 
 	plt.plot(x, y)
 	plt.xticks(rotation = 45) # Rotates X-Axis Ticks by 45-degrees
-	plt.show()
 	plt.savefig(IMAGE_CACHE)
 
 async def send_image(channel):

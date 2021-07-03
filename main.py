@@ -8,6 +8,7 @@ from datetime import datetime
 import time
 import logging
 import timeago
+import matplotlib.pyplot as plt
 
 client = discord.Client()
 logging.basicConfig(level=logging.INFO)

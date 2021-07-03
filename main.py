@@ -41,7 +41,9 @@ async def on_message(message):
 		else: 
 			count = await get_current_velma_count()
 			await message.channel.send(generate_count_message(count, get_lastupdate_string(time.time())))
-
+	elif message.content.startswith('$velma graph'):
+		generate_graph()
+		await send_image(message.channel)
 	elif message.content.startswith('$velma help'):
 		await message.channel.send("a full list of commands can be found at https://github.com/MoralCode/velmabot/")
 

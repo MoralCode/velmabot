@@ -1,8 +1,6 @@
 *.tar
 *.png
 *.md
-Pipfile
-Pipfile.lock
 .env
 .git/*
 .gitignore

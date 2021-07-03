@@ -9,6 +9,8 @@ import time
 import logging
 import timeago
 import matplotlib.pyplot as plt
+from collections import deque
+
 
 client = discord.Client()
 logging.basicConfig(level=logging.INFO)

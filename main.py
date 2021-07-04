@@ -69,6 +69,7 @@ def generate_graph():
 	plt.plot(x, y)
 	plt.xticks(rotation = 20) # Rotates X-Axis Ticks by 45-degrees
 	plt.savefig(IMAGE_CACHE)
+	plt.cla()
 
 async def send_image(channel):
 	await channel.send(file=discord.File(IMAGE_CACHE))

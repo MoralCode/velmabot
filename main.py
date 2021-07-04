@@ -66,6 +66,8 @@ def generate_graph():
 	x = [datetime.fromtimestamp(float(d)) for d in x ]
 	y = [int(v) if v else 0 for v in y ]
 
+	fig1, ax1 = plt.subplots()
+	ax1.set_title("Number of unmatched velma sites in the last 24 hours")
 	plt.plot(x, y)
 	plt.xticks(rotation = 20) # Rotates X-Axis Ticks by 45-degrees
 	plt.savefig(IMAGE_CACHE)

@@ -59,8 +59,8 @@ def generate_graph():
 	data = get_data_since(datetime.timestamp(date_24h_ago))
 	for entry in data:
 		row = entry.split(",")
-		x.append(row[0])
-		y.append(row[1])
+		x.append(row[0].strip())
+		y.append(row[1].strip())
 
 	# convert data to the respective format
 	x = [datetime.fromtimestamp(float(d)) for d in x ]

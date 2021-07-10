@@ -25,7 +25,7 @@ headers = {
 	}
 DATAFILE = "./data/data.csv"
 IMAGE_CACHE = 'data/graph-tmp.png'
-
+VOICELINES_FILE = 'lines.txt'
 
 @client.event
 async def on_ready():

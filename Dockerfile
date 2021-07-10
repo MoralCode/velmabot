@@ -8,6 +8,7 @@ COPY Pipfile.lock .
 RUN pipenv install
 
 COPY main.py .
+COPY lines.txt .
 
 RUN mkdir data
 

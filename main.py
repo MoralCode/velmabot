@@ -81,7 +81,8 @@ async def send_image(channel):
 	await channel.send(file=discord.File(IMAGE_CACHE))
 
 def generate_count_message(count, datestr = "recently"):
-	return "The current velma count as of " + datestr + " is: " + str(count)
+	line = random_line(VOICELINES_FILE)
+	return line.format(last_updated=datestr, count=count)
 
 # https://discordpy.readthedocs.io/en/latest/faq.html#what-does-blocking-mean
 async def get_current_velma_count():

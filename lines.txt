@@ -3,4 +3,4 @@ Looks like there are {count} locations to be matched as of {last_updated}!
 Psst! It's Velma o'clock! {count} locations need matching!
 {count} locations are being served hot and fresh as of {last_updated}. Get 'em before they're gone!
 Jinkies! I found {count} locations need matching {last_updated}!
-I know theres locations that need matching, but I can't see them without my glasses!
+I know there was  {count} locations that need matching, but I can't see them without my glasses!

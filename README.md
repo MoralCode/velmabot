@@ -13,10 +13,13 @@ The bot is currently set up only for operation in a single channel and requires 
 
 `$velma help` - display a help message with a link to this lost of commands
 
-## Building
+## Getting a docker image
 
 To build the docker image:
 `docker build -t velma-bot .`
+
+The image can also be pulled from the GitHub Package Registry using the command `docker pull ghcr.io/moralcode/velmabot:main`.
+
 ## Hosting
 
 The bot can be hosted with docker

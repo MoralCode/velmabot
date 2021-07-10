@@ -123,6 +123,7 @@ def get_data_since(timestamp):
 	with open(DATAFILE, 'r') as f:
 		for line in f:
 			date = line.split(",")[0] 
+			date = date.strip() if date else None
 			date = float(date) if date else 0
 			if date >= timestamp:
 				data.append(line)

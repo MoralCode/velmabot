@@ -33,6 +33,13 @@ docker run \
 
 ```
 
+## Voice Lines
+By adding lines to the `lines.txt` file, you can change what lines are randomly pulled from when velma posts the status.
+
+These lines can be anything as long as the whole message is on one line. There are also the following substitution patterns that will be replaced with real data:
+
+- `{count}` will be replaced with the current number of velma sites in need of matching
+- `{last_updates}` will be replaced with a relative time reperesenting when the count was last updated. Some examples of this value are "just now", "5 seconds ago", and "2 minutes ago"
 
 ## Troubleshooting
 

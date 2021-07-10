@@ -9,6 +9,8 @@ import time
 import logging
 import timeago
 import matplotlib.pyplot as plt
+import random
+
 
 
 client = discord.Client()
@@ -128,6 +130,16 @@ def get_data_since(timestamp):
 			if date >= timestamp:
 				data.append(line)
 	return data
+
+#https://stackoverflow.com/a/3540315/
+def random_line(filename):
+	with open(filename, "r") as afile:
+		line = next(afile)
+		for num, aline in enumerate(afile, 2):
+			if random.randrange(num):
+				continue
+			line = aline
+		return line
 
 
 
